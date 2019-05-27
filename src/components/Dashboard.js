@@ -9,16 +9,28 @@ const Wrapper = styled.div();
 class Dashboard extends Component {
   state = {
     activeTab: 0,
+    pages: [],
+  }
+
+  componentDidMount = () => {
+    const pagesPromise = this.props.pages;
+
+    pagesPromise.then(this.setPages);
   }
 
   tabsClickHandler = tab => {
     this.setState({ activeTab: tab })
   }
 
-  render() {
-    const { tabsClickHandler, state, props } = this;
-    const numberOfTabs = props.pages.length;
+  setPages = pages => {
+    this.setState({ pages });
+  }
 
+  render() {
+    const { tabsClickHandler, state } = this;
+
+    if (!state.pages.length) return <div>grabbing pages</div>
+    const numberOfTabs = state.pages.length;
     return (
       <Wrapper>
         <Tabs
@@ -27,7 +39,7 @@ class Dashboard extends Component {
           onClickHandler={tabsClickHandler}
           activeTab={state.activeTab}
         />
-        {props.pages[state.activeTab]}
+        {state.pages[state.activeTab]}
       </Wrapper>
     );
   }
@@ -35,11 +47,11 @@ class Dashboard extends Component {
 
 export default Dashboard;
 
-Dashboard.defaultProps = {
-  pages: [<div>FEED ME PAGES</div>]
-};
+// Dashboard.defaultProps = {
+//   pages: new Promise(() => [<div>FEED ME PAGES</div>]),
+// };
 
-Dashboard.propTypes = {
-  pages: PropTypes.arrayOf(PropTypes.node)
-};
+// Dashboard.propTypes = {
+//   pages: PropTypes.object,
+// };
 
