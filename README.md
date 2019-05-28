@@ -4,7 +4,7 @@
 
 This app demonstrates an implementation of frontend code, where components are dynamically required. This is meant to support a system where contentIDs are fetched and mapped to Components in the application via filepaths.
 
-There are two ways to import pages in this application: `require()` or `import()`.
+There are two ways to import pages in this application: `require()` or [import()](https://webpack.js.org/api/module-methods#import-).
 
 The import() code is based off of [this medium post](https://itnext.io/https-medium-com-popov4ik4-what-about-promises-in-loops-e94c97ad39c0).
 
